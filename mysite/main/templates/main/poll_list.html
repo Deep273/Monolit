@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Список голосований{% endblock %}
+
+{% block content %}
+<h2>Список голосований</h2>
+
+<ul>
+    {% for poll in polls %}
+        <li>
+            <a href="{% url 'poll_detail' poll.id %}">{{ poll.question }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

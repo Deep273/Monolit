@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+    <div class="features">
+        <h1>Главная страница</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aperiam beatae error fugit mollitia, nam necessitatibus repellendus sed ut.</p>
+
+        {% if user.is_authenticated %}
+            <p>Добро пожаловать, {{ user.username }}!</p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Выйти</button>
+            </form>
+        {% else %}
+            <button class="btn btn-warning"><a href="{% url 'login' %}">Войти</a></button>
+            <a href="{% url 'register' %}">
+                <button class="btn btn-warning">Регистрация</button>
+            </a>
+        {% endif %}
+
+         <!-- Вывод сообщений об успешных действиях -->
+        {% if messages %}
+            <div class="alert alert-info mt-3">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

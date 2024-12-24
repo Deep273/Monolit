@@ -1,0 +1,30 @@
+{% extends "main/layout.html" %}
+
+{% block title %} Голосование {% endblock %}
+
+{% block content %}
+  <h1>{{ poll.question }}</h1>
+
+  {% if user_vote %}
+    <!-- Если пользователь уже проголосовал, показываем предупреждение -->
+    <p class="alert alert-warning">Вы уже проголосовали за этот вопрос.</p>
+
+    <h3>Результаты голосования:</h3>
+    <ul>
+      {% for option in poll.options.all %}
+        <li>
+          {{ option.option_text }} - {{ option.vote_percentage|floatformat:2 }}% ({{ option.votes }} голосов)
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <!-- Если пользователь еще не проголосовал, показываем форму для голосования -->
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Проголосовать</button>
+    </form>
+
+    <p>Пожалуйста, проголосуйте, чтобы увидеть результаты.</p>
+  {% endif %}
+{% endblock %}

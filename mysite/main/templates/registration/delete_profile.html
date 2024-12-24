@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Удаление профиля{% endblock %}
+
+{% block content %}
+<h2>Вы уверены, что хотите удалить свой профиль?</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Удалить профиль</button>
+    <a href="{% url 'profile' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
